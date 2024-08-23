@@ -119,6 +119,9 @@ as the largest single grid item. Putting too much content in any individual grid
 } */
 .footer {
     grid-area: footer;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
 }
 /* This is for the 6x1 grid in the center of the page. This was originally 3x3, hence the container name. */
 /* leaving as a grid in case there's a need to change the layout in the future. */
@@ -151,17 +154,18 @@ ul {                /* adding some styling to the list to have bullet points in 
 }
 /* Scaling images to fit within the main middle boxes */
 .nines img{
-    object-fit: scale-down;
-    box-shadow: 5px 5px #30303085; /* drop shadow effect for the images, may not be necessary but looks nice */
+    max-width: 100%; /* Width needs to be 100%, height can be auto, otherwise the image takes a massive amount of vertical space */
+    height: auto;
     border: 2px solid black;
+    box-shadow: 5px 5px #30303085; /* drop shadow effect for the images, may not be necessary but looks nice */
+    box-sizing: border-box;
 }
 .sidel img{
-    width: 100%; /* Width needs to be 100%, height can be auto, otherwise the image takes a massive amount of vertical space */
+    max-width: 100%; /* Width needs to be 100%, height can be auto, otherwise the image takes a massive amount of vertical space */
     height: auto;
-    object-fit: scale-down;
-    box-shadow: 5px 5px #30303085; /* drop shadow effect for the images, may not be necessary but looks nice */
     border: 2px solid black;
-
+    box-shadow: 5px 5px #30303085; /* drop shadow effect for the images, may not be necessary but looks nice */
+    box-sizing: border-box;
 }
 .pic img{
     width: 100%; /* Width needs to be 100%, height can be auto, otherwise the image takes a massive amount of vertical space */
@@ -224,7 +228,7 @@ ul {                /* adding some styling to the list to have bullet points in 
 /* media queries for pic div bonus rickroll and text */
 @media (max-width: 1300px) and (min-width:901px) {
     .secondaryImage {
-        display: block;
+        display: none;
     }
     .secondaryText {
         display: block;
@@ -233,7 +237,7 @@ ul {                /* adding some styling to the list to have bullet points in 
 
 @media (max-width: 1100px) and (min-width:901px) {
     .secondaryImage {
-        display: block;
+        display: none;
     }
     .secondaryText {
         display: block;
@@ -283,18 +287,19 @@ ul {                /* adding some styling to the list to have bullet points in 
                 'main5' 
                 'main6';
         }
+        .ContactInformation { /* this is setting up the grid below the footer title, subgroup within the "footer" div */
+            display:flex;
+            /* grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 1fr; */
+            flex-direction: column;
+            place-items: center;
+    }
     }
 
 }
 
 @media (max-width: 700px) {
-    .container div {
-        background-color: #18728872;
-        padding: 1em;
-        color: aliceblue;
-        box-shadow: 5px 5px #30303085; /* Creates an additional 3D effect by adding a drop-shadow to the bottom and right sides of each div box */
-        text-shadow: 1px 2px 2px black;
-    }
+
     .desktop {
         display: none; /* Will make that item disappear */
     }
@@ -303,7 +308,7 @@ ul {                /* adding some styling to the list to have bullet points in 
         display: none;
     }
 
-    .phone {
+    .phone {        
         display:grid;
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(4) 10%; /* This gives us a smaller footer to work with, previously with 5, 1fr the header and footers were the same size */;
@@ -331,6 +336,32 @@ ul {                /* adding some styling to the list to have bullet points in 
                     'main5' 
                     'main6'
                 ;
+            }
+            .container div {
+                background-color: #18728872;
+                padding: 1em;
+                color: aliceblue;
+                box-shadow: 5px 5px #30303085; /* Creates an additional 3D effect by adding a drop-shadow to the bottom and right sides of each div box */
+                text-shadow: 1px 2px 2px black;
+            }
+            .ContactInformation { /* this is setting up the grid below the footer title, subgroup within the "footer" div */
+                display:flex;
+                /* grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: 1fr; */
+                flex-direction: column;
+                place-items: center;
+            }
+            .sidel img{
+                max-width: 100%; /* Width needs to be 100%, height can be auto, otherwise the image takes a massive amount of vertical space */
+                height: auto;
+                border: 2px solid black;
+                box-shadow: 5px 5px #30303085; /* drop shadow effect for the images, may not be necessary but looks nice */
+                box-sizing: border-box;
+            }
+            ul {                /* adding some styling to the list to have bullet points in the overview appear in two lines. More efficient use of the space */
+                columns: 1;
+                -webkit-columns: 1;        /* adds additional formatting support in case unsupported by some browsers, for some reason an unordered list with columns breaks with more niche/older browsers */                             
+                -moz-columns: 1;
             }
     }
 }
