@@ -3,7 +3,7 @@
     z-index: -1;    /* this will keep the image behind all other content as long as nothing else has a lower index */
     width: 100%;
     height: 100%;        
-    background: url("images/BackgroundZ-1.jpg") no-repeat;         /* free stock image provided by www.vecteezy.com, attributed as per request */
+    background: url("../images/BackgroundZ-1.jpg") no-repeat;         /* Needs the ../ because css file is in another folder. Background is a free stock image provided by www.vecteezy.com, attributed as per request */
     background-size: cover;
     margin: 10px;
     position: fixed;    /* keeps the image in the same place within the viewport. Creates an illusion that content is moving while the viewport stays in place. Easier than trying to create a parallax effect */
