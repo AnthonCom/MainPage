@@ -1,0 +1,337 @@
+/* wanting a static image background behind everything that follows and scales with the viewport */
+#background {
+    z-index: -1;    /* this will keep the image behind all other content as long as nothing else has a lower index */
+    width: 100%;
+    height: 100%;        
+    background: url("/Assets/BackgroundZ-1.jpg") no-repeat;         /* free stock image provided by www.vecteezy.com, attributed as per request */
+    background-size: cover;
+    margin: 10px;
+    position: fixed;    /* keeps the image in the same place within the viewport. Creates an illusion that content is moving while the viewport stays in place. Easier than trying to create a parallax effect */
+}
+/* ideally wanting images that fit within grids, may need to change this to a specific div */
+/* This is overwriting colour for the entire sheet as everything is within the div container, but it is adding a neat scaling effect so I'll leave it - to change 
+colours for everything else you'll need to mess with z-input */
+.container div {
+    background-color: #0f4d5c6c;
+    padding: 1em;
+    color: aliceblue;
+    box-shadow: 5px 5px #30303085; /* Creates an additional 3D effect by adding a drop-shadow to the bottom and right sides of each div box */
+    text-shadow: 1px 2px 2px black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+h1{
+    background-color: black;
+    color: aliceblue;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+h2{
+    background-color: rgb(71, 70, 70);
+    color: aliceblue;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+h3{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}
+/* THIS IS THE DEFAULT SETTING, MEDIA QUERIES WILL NEED TO ADJUST BELOW, BASED ON THEIR RESPECTIVE CONTAINER NAME */
+/* 
+When additional projects have been completed, Intention is to expand sidel (projects) to cover 2 columns
+        'header header header pic'
+        'sidel sidel main main'
+        'sidel sidel main main'
+        'footer footer footer footer'
+and further until project count is large enough we can essentially have sidel taking 3 of the columns, with work history on the rightmost column only. 
+This will need fine-tuning as the grid boxes are set to scale automatically (fr) to the content within them. Meaning, these .desktop boxes will only ever be as small
+as the largest single grid item. Putting too much content in any individual grid box will skew all the rest. 
+*/
+.desktop {
+    display: grid;
+    grid-template-columns: repeat(4fr, 25%); /* REMEMBER FR ALLOWS STUFF TO SCALE PROPERLY */
+    grid-template-rows: repeat(3fr, 20%) 10%; /* This gives us a smaller footer to work with, previously with 5, 1fr the header and footers were the same size */
+    gap: 15px;
+/* REMEMBER TO USE ' ' ON EITHER SIDE OF THE TEMPLATE AREA INFO AS BELOW */
+/* may have to rename the mains for each individual item */
+    grid-template-areas: 
+        'header header header pic'
+        'sidel main main main'
+        'sidel main main main'
+        'footer footer footer footer'
+    ;
+}
+
+.header {
+    grid-area: header;
+    font-size: larger;
+}
+.main{
+    grid-area: main;
+}
+.pic {
+    grid-area: pic;             /* Setting this up as a flexbox so the pic with it's margin scale together rather than independently */
+    display:flex;
+    flex-direction: column;
+    place-items: center;
+    font-size: 18px;
+}
+.sider {                        /* sider has been redacted for simplicity, but leaving related styling in place to make reactivating easier should it be necessary. */
+    grid-area: sider;
+}
+.sidel {
+    grid-area: sidel;
+}
+.sidel1{
+    display:flex;
+    flex-direction: column;
+    place-items: center;
+}
+.sidel2{
+    display:flex;
+    flex-direction: column;
+    place-items: center;
+}
+.sidel3{
+    display:flex;
+    flex-direction: column;
+    place-items: center;
+}
+.sidel4{
+    display:flex;
+    flex-direction: column;
+    place-items: center;
+}
+
+/* Sidel and Sider are controlling the left and right boxes respectively */
+/* removed the sub-boxes for now as they seemed superfluous and could cause problems with scaling. Leaving in here as notes just in case */
+/* .sidelsubs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+}
+.sidersubs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+} */
+.footer {
+    grid-area: footer;
+}
+/* This is for the 6x1 grid in the center of the page. This was originally 3x3, hence the container name. */
+/* leaving as a grid in case there's a need to change the layout in the future. */
+.nines1{
+    display:grid;
+    grid-template-columns: repeat(1fr, 100%);
+    grid-template-rows: repeat(6fr, 100%);
+    gap: 10px;
+    grid-auto-flow: dense;
+    grid-template-areas:
+        'main1' 
+        'main2' 
+        'main3'
+        'main4' 
+        'main5' 
+        'main6'
+    ;
+}
+
+ul {                /* adding some styling to the list to have bullet points in the overview appear in two lines. More efficient use of the space */
+    columns: 3;
+    -webkit-columns: 3;        /* adds additional formatting support in case unsupported by some browsers, for some reason an unordered list with columns breaks with more niche/older browsers */                             
+    -moz-columns: 3;
+}
+
+.nines :hover{ /*changes colour when hovering */
+    background-color: #ccfaf7;
+    color: rgb(0, 0, 0);
+    text-shadow: 1px 2px 2px rgb(255, 255, 255);
+}
+/* Scaling images to fit within the main middle boxes */
+.nines img{
+    object-fit: scale-down;
+    box-shadow: 5px 5px #30303085; /* drop shadow effect for the images, may not be necessary but looks nice */
+    border: 2px solid black;
+}
+.sidel img{
+    width: 100%; /* Width needs to be 100%, height can be auto, otherwise the image takes a massive amount of vertical space */
+    height: auto;
+    object-fit: scale-down;
+    box-shadow: 5px 5px #30303085; /* drop shadow effect for the images, may not be necessary but looks nice */
+    border: 2px solid black;
+
+}
+.pic img{
+    width: 100%; /* Width needs to be 100%, height can be auto, otherwise the image takes a massive amount of vertical space */
+    height: auto;
+    object-fit: scale-down;
+    box-shadow: 5px 5px #30303085; /* drop shadow effect for the images, may not be necessary but looks nice */
+    border: 2px solid black;
+}
+/* testing if same method for image scaling works with video */
+.sider video{
+    width: 100%; /* Width needs to be 100%, height can be auto, otherwise the image takes a massive amount of vertical space */
+    height: auto;
+    object-fit: scale-down;
+    box-shadow: 5px 5px #30303085; /* drop shadow effect for the images, may not be necessary but looks nice */
+    border: 2px solid black;
+
+}
+/* generic links for footers */
+.ContactInformation { /* this is setting up the grid below the footer title, subgroup within the "footer" div */
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+}
+.foottext{ /* Text on the left side, taking up two of the three containers */
+    grid-column: 1/span 2;
+}    
+.links { /* this is placing the links in the rightmost container */
+    grid-column: 3;
+}
+.links a {
+    display: flex; /* flex box allows the text links to be aligned to the center of their grid */
+    background-color: black;
+    color: aliceblue;
+    border-radius: 5%;
+    justify-content: center;
+}
+
+/* adding some additional "flavour" for the pic div, fills in the gap created between 1100 and 901 px when combined with media queries below */
+.secondaryImage {
+    display: none;
+}
+.secondaryText{
+    display: none;
+}
+.tertiaryText {
+    display: none;
+    text-align: center;
+}
+
+/* setting up the containers for the different media query sizes */
+
+.tablet {
+    display: none;
+}
+
+.phone {
+    display: none;
+}
+
+/* media queries for pic div bonus rickroll and text */
+@media (max-width: 1300px) and (min-width:901px) {
+    .secondaryImage {
+        display: block;
+    }
+    .secondaryText {
+        display: block;
+    }
+}
+
+@media (max-width: 1100px) and (min-width:901px) {
+    .secondaryImage {
+        display: block;
+    }
+    .secondaryText {
+        display: block;
+    }
+    .tertiaryText {
+        display:block;
+    }
+}
+
+/* Actual media Queries Below: */
+@media (max-width: 900px) and (min-width:701px) { /* TABLET SIZING */
+    .container div {
+        background-color: #125a6c6c;
+        padding: 1em;
+        color: aliceblue;
+        box-shadow: 5px 5px #30303085; /* Creates an additional 3D effect by adding a drop-shadow to the bottom and right sides of each div box */
+        text-shadow: 1px 2px 2px black;
+    }
+    .desktop {
+        display: none; /* Will make the desktop layout disappear */
+    }
+
+    .tablet {
+        display:grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(4) 10%; /* This gives us a smaller footer to work with, previously with 5, 1fr the header and footers were the same size */
+        gap: 15px;
+        /* REMEMBER TO USE ' ' ON EITHER SIDE OF THE TEMPLATE AREA INFO AS BELOW */
+        /* may have to rename the mains for each individual item */
+        grid-template-areas: 
+            'header'
+            'main' 
+            'sidel'
+            'pic'       /* remember, we can't have L/T/etc shaped segments, so we have to populate the center with something else, or leave it blank. Could create another sub-container to put straight down the middle if desired, or adjust the layout further, but not something to worry about right now */
+            'footer';
+        .nines{                     /* this is modifying the 3x3 grid we had originally - remember this is, itself, being contained within the grid above, so if more space
+                                    is being taken up than desired, this will need to be adjusted in that first */
+            display:grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            gap: 10px;
+            grid-template-areas:
+                'main1' 
+                'main2' 
+                'main3' 
+                'main4'
+                'main5' 
+                'main6';
+        }
+    }
+
+}
+
+@media (max-width: 700px) {
+    .container div {
+        background-color: #18728872;
+        padding: 1em;
+        color: aliceblue;
+        box-shadow: 5px 5px #30303085; /* Creates an additional 3D effect by adding a drop-shadow to the bottom and right sides of each div box */
+        text-shadow: 1px 2px 2px black;
+    }
+    .desktop {
+        display: none; /* Will make that item disappear */
+    }
+
+    .tablet {
+        display: none;
+    }
+
+    .phone {
+        display:grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(4) 10%; /* This gives us a smaller footer to work with, previously with 5, 1fr the header and footers were the same size */;
+        gap: 15px;
+        /* REMEMBER TO USE ' ' ON EITHER SIDE OF THE TEMPLATE AREA INFO AS BELOW */
+        /* may have to rename the mains for each individual item */
+        grid-template-areas: 
+            'header'
+            'main'          /* another thing to remember here - because our 'main' subcontainer has the 'nines' subcontainer within it, we will still have a 3x3 grid spread across the 2 columns, unless we change that below */
+            'sidel'
+            'pic'
+                            /* remember, we can't have L/T/etc shaped segments, so we have to populate the center with something else, or leave it blank we could create another sub-container to put straight down the middle if desired, or adjust the layout further, but not something to worry about right now */
+            'footer';
+            .nines{               /* this is modifying the 3x3 grid we had originally - remember this is, itself, being contained within the grid above, so if more space
+                                  is being taken up than desired, this will need to be adjusted in that first */
+                display:grid;
+                grid-template-columns: repeat(1, 1fr);
+                grid-template-rows: repeat(6, 1fr);
+                gap: 10px;
+                grid-template-areas:
+                    'main1' 
+                    'main2' 
+                    'main3' 
+                    'main4'
+                    'main5' 
+                    'main6'
+                ;
+            }
+    }
+}
+
